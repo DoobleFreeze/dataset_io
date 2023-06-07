@@ -180,7 +180,7 @@ def add_dataset(user_id, name_file):
 
 
 @module.route('/get_profile/<int:user_id>', methods=['GET'])
-def add_dataset(user_id):
+def get_profile(user_id):
     try:
         datasets_info = db_operator.get_profile(user_id)
         response_json = JSON_SUCCESS_GET.copy()
