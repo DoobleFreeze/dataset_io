@@ -334,15 +334,16 @@ class DBOperator:
         last_activity = []
         all_activity = session.query(UserHistory).filter(UserHistory.user_id == user_id).all()
         user_info = session.query(Users).filter(Users.id == user_id).first()
-        for i in range(-1, -7, -1):
-            ds_info = session.query(Datasets).filter(Datasets.id == all_activity[i].dataset_id).first()
-            x = {
-                "nickname": user_info.login,
-                "image_path": user_info.image_path,
-                "text_label": all_activity[i].type_operation + " датасет \"" + ds_info.name + "\"",
-                "data_label": all_activity[i].date_operation.strftime("%d.%m.%Y")
-            }
-            last_activity.append(x)
+        if all_activity:
+            for i in range(-1, -len(all_activity) - 1, -1):
+                ds_info = session.query(Datasets).filter(Datasets.id == all_activity[i].dataset_id).first()
+                x = {
+                    "nickname": user_info.login,
+                    "image_path": user_info.image_path,
+                    "text_label": all_activity[i].type_operation + " датасет \"" + ds_info.name + "\"",
+                    "data_label": all_activity[i].date_operation.strftime("%d.%m.%Y")
+                }
+                last_activity.append(x)
 
         response_json = {
             "user_info": {
