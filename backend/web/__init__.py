@@ -1,14 +1,16 @@
+import logging
 from flask import Flask, make_response, jsonify
 from flask_cors import CORS
+from typing import Union
 
 from .database.db_operator import DBOperator
 from .handlers.main_controller import MainController
 from .handlers.session_keeper import SessionKeeper
 
-logger = None
-db_operator = None
-main_control = None
-keeper = None
+logger: Union[logging.Logger, None] = None
+db_operator: Union[DBOperator, None] = None
+main_control: Union[MainController, None] = None
+keeper: Union[SessionKeeper, None] = None
 
 
 def create_api(flask_log: bool,
@@ -52,9 +54,10 @@ def create_api(flask_log: bool,
 
     # from . import endpoint_api_controllers as api_control
     from .handlers.global_values import JSON_ERROR_NOT_FOUND
+    from . import endpoint_api_controllers as api_control
 
     # # Подключение endpoint`ов
-    # app.register_blueprint(api_control.module)
+    app.register_blueprint(api_control.module)
 
     @app.errorhandler(404)
     def not_found(_error):

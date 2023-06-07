@@ -10,3 +10,4 @@ class Users(SqlAlchemyBase):
     login = sqlalchemy.Column(sqlalchemy.Text)
     email = sqlalchemy.Column(sqlalchemy.Text)
     password = sqlalchemy.Column(sqlalchemy.Text)
+    image_path = sqlalchemy.Column(sqlalchemy.Text, nullable=True)
