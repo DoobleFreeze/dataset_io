@@ -140,8 +140,8 @@ class DBOperator:
             x = {
                 "nickname": us.login,
                 "image_path": us.image_path,
-                "memory": us_to_ds[us.id]["memory"],
-                "count": us_to_ds[us.id]['count']
+                "memory": us_to_ds[us.id]["memory"] if us_to_ds.get(us.id, False) else 0,
+                "count": us_to_ds[us.id]['count'] if us_to_ds.get(us.id, False) else 0
             }
             user_anal.append(x)
 
