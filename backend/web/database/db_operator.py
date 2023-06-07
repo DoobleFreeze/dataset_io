@@ -295,10 +295,17 @@ class DBOperator:
         session.commit()
         self.logger.debug(f"Dataset deleted: {dataset_id}")
 
-    def get_path_dataset(self, dataset_id):
+    def get_path_dataset(self, dataset_id, user_id):
         session = create_session()
         ds = session.query(Datasets).filter(Datasets.id == dataset_id).first()
         self.logger.debug(f"Dataset path: {ds.file_path}")
+        new_history = UserHistory(
+            user_id=user_id,
+            dataset_id=ds.id,
+            type_operation="Скачал"
+        )
+        session.add(new_history)
+        session.commit()
         return ds.file_path
 
     def add_dataset(self, user_id, name_file, new_name, count_memory):
@@ -311,6 +318,13 @@ class DBOperator:
             is_deleted=False
         )
         session.add(new_dataset)
+        session.commit()
+        new_history = UserHistory(
+            user_id=user_id,
+            dataset_id=new_dataset.id,
+            type_operation="Загрузил"
+        )
+        session.add(new_history)
         session.commit()
         self.logger.debug(f"Add new dataset: {name_file}")
 
