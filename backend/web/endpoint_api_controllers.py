@@ -185,7 +185,9 @@ def get_profile(user_id):
         datasets_info = db_operator.get_profile(user_id)
         response_json = JSON_SUCCESS_GET.copy()
         response_json['data'] = datasets_info
-        return make_response(jsonify(response_json), response_json['response_code'])
+        response = jsonify(response_json)
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return make_response(response, response_json['response_code'])
     except Exception as e:
         logger.error(LOG_ERROR.format(FUNC='api/logout method handler', ERROR=str(e)))
         logger.debug(LOG_ERROR_DETAILS.format(ERROR=traceback.format_exc()))
