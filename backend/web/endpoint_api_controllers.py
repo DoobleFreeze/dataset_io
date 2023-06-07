@@ -152,10 +152,10 @@ def delete_dataset(dataset_id):
         logger.debug(LOG_ERROR_DETAILS.format(ERROR=traceback.format_exc()))
 
 
-@module.route('/get_dataset/<int:dataset_id>', methods=['GET'])
-def get_dataset(dataset_id):
+@module.route('/get_dataset/<int:dataset_id>/<int:user_id>', methods=['GET'])
+def get_dataset(dataset_id, user_id):
     try:
-        file_path = db_operator.get_path_dataset(dataset_id)
+        file_path = db_operator.get_path_dataset(dataset_id, user_id)
         logger.debug(f"{os.getcwd()}")
         logger.debug(f"{round((os.path.getsize(f'./web/datasets/{file_path}') / 1024) / 1024, 2)}")
         return send_from_directory(f"datasets", file_path)
