@@ -167,11 +167,12 @@ def get_dataset(dataset_id, user_id):
 @module.route('/add_dataset/<int:user_id>/<string:name_file>', methods=['POST'])
 def add_dataset(user_id, name_file):
     try:
+        logger.debug(request)
         video = request.files['dataset'].read()
         new_name = generate_code(len_key=64)
         with open(f'./web/datasets/{new_name}.zip', "wb") as f:
             f.write(video)
-        count_memory = round((os.path.getsize(f'./web/datasets/{new_name}') / 1024) / 1024, 2)
+        count_memory = round((os.path.getsize(f'./web/datasets/{new_name}.zip') / 1024) / 1024, 2)
         db_operator.add_dataset(user_id, name_file, new_name, count_memory)
         return make_response(jsonify(JSON_SUCCESS_POST), JSON_SUCCESS_POST['response_code'])
     except Exception as e:
