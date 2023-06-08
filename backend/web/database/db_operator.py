@@ -357,7 +357,7 @@ class DBOperator:
         self.logger.debug(f"Get datasets: {response_json}")
         return response_json
 
-    def update_user(self, user_id, image_path, login="", password="", ):
+    def update_user(self, user_id, login="", password="", image_path=""):
         session = create_session()
 
         user_info = session.query(Users).filter(Users.id == user_id).first()
