@@ -158,7 +158,7 @@ def get_dataset(dataset_id, user_id):
         file_path = db_operator.get_path_dataset(dataset_id, user_id)
         logger.debug(f"{os.getcwd()}")
         logger.debug(f"{round((os.path.getsize(f'./web/datasets/{file_path}.zip') / 1024) / 1024, 2)}")
-        return send_from_directory(f"datasets", file_path)
+        return send_from_directory(f"datasets", file_path + ".zip")
     except Exception as e:
         logger.error(LOG_ERROR.format(FUNC='api/check/<user_session> method handler', ERROR=str(e)))
         logger.debug(LOG_ERROR_DETAILS.format(ERROR=traceback.format_exc()))
