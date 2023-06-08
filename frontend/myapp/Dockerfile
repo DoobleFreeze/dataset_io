@@ -3,10 +3,10 @@ FROM node:16-alpine
 RUN npm install -g pnpm
 
 WORKDIR /app
-COPY ./myapp/package.json ./
+COPY package.json ./
 RUN pnpm install
 
-COPY ./myapp .
+COPY . .
 RUN pnpm build
 
 EXPOSE 3000
