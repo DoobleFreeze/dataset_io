@@ -1,7 +1,7 @@
 import os.path
 import traceback
 import random
-from flask import Blueprint, request, make_response, jsonify, send_from_directory
+from flask import Blueprint, request, make_response, jsonify, send_from_directory, send_file
 
 from . import logger, db_operator, main_control, keeper
 from .handlers.global_values import *
@@ -158,7 +158,11 @@ def get_dataset(dataset_id, user_id):
         file_path = db_operator.get_path_dataset(dataset_id, user_id)
         logger.debug(f"{os.getcwd()}")
         logger.debug(f"{round((os.path.getsize(f'./web/datasets/{file_path}.zip') / 1024) / 1024, 2)}")
-        return send_from_directory(f"datasets", file_path + ".zip")
+        # return send_from_directory(f"datasets", file_path + ".zip", )
+        # return send_file(f"./datasets/" + file_path + ".zip")
+        with open(f"./web/datasets/" + file_path + ".zip", "rb") as f:
+            a = f.read()
+        return a
     except Exception as e:
         logger.error(LOG_ERROR.format(FUNC='api/check/<user_session> method handler', ERROR=str(e)))
         logger.debug(LOG_ERROR_DETAILS.format(ERROR=traceback.format_exc()))
