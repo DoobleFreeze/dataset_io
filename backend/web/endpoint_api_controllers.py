@@ -162,7 +162,7 @@ def get_dataset(dataset_id, user_id):
         # return send_file(f"./datasets/" + file_path + ".zip")
         with open(f"./web/datasets/" + file_path + ".zip", "rb") as f:
             a = f.read()
-        return a
+        return str(a)
     except Exception as e:
         logger.error(LOG_ERROR.format(FUNC='api/check/<user_session> method handler', ERROR=str(e)))
         logger.debug(LOG_ERROR_DETAILS.format(ERROR=traceback.format_exc()))
