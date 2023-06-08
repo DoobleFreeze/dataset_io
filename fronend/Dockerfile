@@ -3,10 +3,10 @@ FROM node:16-alpine
 RUN npm install -g pnpm
 
 WORKDIR /app
-COPY package.json pnpm-lock.yaml ./
+COPY ./myapp/package.json pnpm-lock.yaml ./
 RUN pnpm install --frozen-lockfile
 
-COPY . .
+COPY ./myapp .
 RUN pnpm build
 
 EXPOSE 3000
