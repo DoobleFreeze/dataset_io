@@ -1,1 +1,11 @@
 .idea
+fronend/myapp/.DS_Store
+fronend/myapp/node_modules
+fronend/myapp/build
+fronend/myapp/.svelte-kit
+fronend/myapp/package
+fronend/myapp/.env
+fronend/myapp/.env.*
+fronend/myapp/!.env.example
+fronend/myapp/vite.config.js.timestamp-*
+fronend/myapp/vite.config.ts.timestamp-*
