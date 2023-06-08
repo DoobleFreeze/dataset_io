@@ -217,3 +217,18 @@ def update_user(user_id):
     except Exception as e:
         logger.error(LOG_ERROR.format(FUNC='api/registration method handler', ERROR=str(e)))
         logger.debug(LOG_ERROR_DETAILS.format(ERROR=traceback.format_exc()))
+
+
+@module.route('/update_image/<int:user_id>/<string:file_path>', methods=['GET'])
+def update_image(user_id, file_path):
+    try:
+        coming_json = request.json
+
+        db_operator.update_user(user_id,
+                                file_path,
+                                )
+
+        return make_response(jsonify(JSON_SUCCESS_POST), JSON_SUCCESS_POST['response_code'])
+    except Exception as e:
+        logger.error(LOG_ERROR.format(FUNC='api/registration method handler', ERROR=str(e)))
+        logger.debug(LOG_ERROR_DETAILS.format(ERROR=traceback.format_exc()))
